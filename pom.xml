@@ -11,7 +11,7 @@
 
     <groupId>com.scoperetail.commons.cassandra.config</groupId>
     <artifactId>commons-cassandra-config</artifactId>
-    <version>0.2-SNAPSHOT</version>
+    <version>0.2</version>
     <name>commons-cassandra-config</name>
     <description>Commons Cassandra Config</description>
     <packaging>jar</packaging>
@@ -24,7 +24,7 @@
         <developerConnection>
             scm:git:git@github.com:scoperetail-io/${project.artifactId}.git
         </developerConnection>
-        <tag>HEAD</tag>
+        <tag>commons-cassandra-config-0.2</tag>
         <url>https://github.com/scoperetail-io/${project.artifactId}</url>
     </scm>
 
