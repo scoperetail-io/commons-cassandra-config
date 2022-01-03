@@ -12,8 +12,8 @@ package com.scoperetail.commons.cassandra.config;
  * =====
  */
 
-import com.scoperetail.commons.cassandra.config.type.ApacheCassandraConfig;
-import com.scoperetail.commons.cassandra.config.type.DataStaxCassandraConfig;
+import com.scoperetail.commons.cassandra.config.apache.ApacheCassandraConfig;
+import com.scoperetail.commons.cassandra.config.datastax.DataStaxCassandraConfig;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.data.cassandra.CassandraDataAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
