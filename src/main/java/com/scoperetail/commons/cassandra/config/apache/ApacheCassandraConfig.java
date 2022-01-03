@@ -1,4 +1,4 @@
-package com.scoperetail.commons.cassandra.config.type;
+package com.scoperetail.commons.cassandra.config.apache;
 
 /*-
  * *****

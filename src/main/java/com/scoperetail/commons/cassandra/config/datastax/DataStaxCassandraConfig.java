@@ -1,4 +1,4 @@
-package com.scoperetail.commons.cassandra.config.type;
+package com.scoperetail.commons.cassandra.config.datastax;
 
 /*-
  * *****
@@ -12,16 +12,18 @@ package com.scoperetail.commons.cassandra.config.type;
  * =====
  */
 
+import com.datastax.oss.driver.api.core.CqlSession;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.cassandra.CqlSessionBuilderCustomizer;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
 import java.nio.file.Paths;
 
 @Configuration
 @ConditionalOnProperty(value = "cassandra.db.type", havingValue = "astra", matchIfMissing = false)
+@Import({CassandraTemplateConfig.class})
 public class DataStaxCassandraConfig {
 
   @Value("${datastax.astra.secure-connect-bundle.path}")
@@ -37,11 +39,11 @@ public class DataStaxCassandraConfig {
   private String keySpace;
 
   @Bean
-  public CqlSessionBuilderCustomizer cqlSessionBuilderCustomizer() {
-    return cqlSessionBuilder ->
-        cqlSessionBuilder
-            .withCloudSecureConnectBundle(Paths.get(secureConnectBundlePath))
-            .withAuthCredentials(username, password)
-            .withKeyspace(keySpace);
+  public CqlSession cqlSession() {
+    return CqlSession.builder()
+        .withCloudSecureConnectBundle(Paths.get(secureConnectBundlePath))
+        .withAuthCredentials(username, password)
+        .withKeyspace(keySpace)
+        .build();
   }
 }
