@@ -20,6 +20,7 @@ import org.springframework.data.cassandra.core.cql.AsyncCqlTemplate;
 
 @Configuration
 public class AsyncTemplateConfig {
+
   @Autowired CqlSession cqlSession;
 
   @Bean
