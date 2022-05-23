@@ -2,12 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>com.scoperetail.pom</groupId>
-        <artifactId>corp-parent-pom</artifactId>
-        <version>1.10</version>
-        <relativePath />
-    </parent>
+	<parent>
+		<groupId>com.scoperetail.pom</groupId>
+		<artifactId>oss-parent-pom</artifactId>
+		<version>1.6</version>
+		<relativePath />
+	</parent>
 
     <groupId>com.scoperetail.commons.cassandra.config</groupId>
     <artifactId>commons-cassandra-config</artifactId>
@@ -18,6 +18,7 @@
 
     <properties>
         <cosmos.external.bom.version>1.18</cosmos.external.bom.version>
+         <spring.version>2.5.5</spring.version>
     </properties>
 
     <scm>
@@ -28,24 +29,6 @@
         <url>https://github.com/scoperetail-io/${project.artifactId}</url>
     </scm>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>com.scoperetail.bom</groupId>
-                <artifactId>cosmos-bom-external</artifactId>
-                <version>${cosmos.external.bom.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <dependencies>
         <dependency>
@@ -57,21 +40,25 @@
                     <artifactId>spring-boot-starter-logging</artifactId>
                 </exclusion>
             </exclusions>
+            <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
+            <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
             <optional>true</optional>
+            <version>${lombok.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-cassandra</artifactId>
+            <version>${spring.version}</version>
         </dependency>
     </dependencies>
 </project>
