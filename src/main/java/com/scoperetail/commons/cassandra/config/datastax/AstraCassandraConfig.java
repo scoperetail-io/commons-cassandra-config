@@ -4,17 +4,30 @@ package com.scoperetail.commons.cassandra.config.datastax;
  * *****
  * commons-cassandra-config
  * -----
- * Copyright (C) 2018 - 2021 Scope Retail Systems Inc.
+ * Copyright (C) 2018 - 2022 Scope Retail Systems Inc.
  * -----
- * This software is owned exclusively by Scope Retail Systems Inc.
- * As such, this software may not be copied, modified, or
- * distributed without express permission from Scope Retail Systems Inc.
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  * =====
  */
 
-import com.datastax.oss.driver.api.core.CqlSession;
-import com.datastax.oss.driver.api.core.config.DefaultDriverOption;
-import com.datastax.oss.driver.api.core.config.DriverConfigLoader;
+import java.nio.file.Paths;
+import java.time.Duration;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -23,14 +36,14 @@ import org.springframework.context.annotation.Import;
 import org.springframework.data.cassandra.core.convert.CassandraConverter;
 import org.springframework.data.cassandra.core.convert.MappingCassandraConverter;
 import org.springframework.data.cassandra.core.mapping.CassandraMappingContext;
-
-import java.nio.file.Paths;
-import java.time.Duration;
+import com.datastax.oss.driver.api.core.CqlSession;
+import com.datastax.oss.driver.api.core.config.DefaultDriverOption;
+import com.datastax.oss.driver.api.core.config.DriverConfigLoader;
 
 @Configuration
-@ConditionalOnProperty(value = "cassandra.db.type", havingValue = "astra", matchIfMissing = false)
-@Import({CassandraTemplateConfig.class})
-public class DataStaxCassandraConfig {
+@ConditionalOnProperty(value = "db.type", havingValue = "Astra-Cassandra", matchIfMissing = false)
+@Import({AstraCassandraTemplateConfig.class})
+public class AstraCassandraConfig {
 
   @Value("${datastax.astra.secure-connect-bundle.path}")
   private String secureConnectBundlePath;

@@ -1,20 +1,6 @@
 package com.scoperetail.commons.cassandra.config.apache;
 
-/*-
- * *****
- * commons-cassandra-config
- * -----
- * Copyright (C) 2018 - 2021 Scope Retail Systems Inc.
- * -----
- * This software is owned exclusively by Scope Retail Systems Inc.
- * As such, this software may not be copied, modified, or
- * distributed without express permission from Scope Retail Systems Inc.
- * =====
- */
-
-import com.datastax.oss.driver.api.core.CqlSessionBuilder;
-import com.datastax.oss.driver.api.core.config.DefaultDriverOption;
-import com.datastax.oss.driver.api.core.config.DriverConfigLoader;
+import java.time.Duration;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -23,10 +9,38 @@ import org.springframework.data.cassandra.config.AbstractCassandraConfiguration;
 import org.springframework.data.cassandra.config.CqlSessionFactoryBean;
 import org.springframework.data.cassandra.config.SessionBuilderConfigurer;
 
-import java.time.Duration;
+/*-
+ * *****
+ * commons-cassandra-config
+ * -----
+ * Copyright (C) 2018 - 2021 Scope Retail Systems Inc.
+ * -----
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ * =====
+ */
+
+import com.datastax.oss.driver.api.core.CqlSessionBuilder;
+import com.datastax.oss.driver.api.core.config.DefaultDriverOption;
+import com.datastax.oss.driver.api.core.config.DriverConfigLoader;
 
 @Configuration
-@ConditionalOnProperty(value = "cassandra.db.type", havingValue = "apache", matchIfMissing = false)
+@ConditionalOnProperty(value = "db.type", havingValue = "Apache-Cassandra", matchIfMissing = false)
 public class ApacheCassandraConfig extends AbstractCassandraConfiguration {
 
   @Value("${spring.data.cassandra.keyspace-name}")
@@ -73,7 +87,7 @@ public class ApacheCassandraConfig extends AbstractCassandraConfiguration {
   @Bean
   @Override
   public CqlSessionFactoryBean cassandraSession() {
-    CqlSessionFactoryBean cassandraSession = new CqlSessionFactoryBean();
+    final CqlSessionFactoryBean cassandraSession = new CqlSessionFactoryBean();
     cassandraSession.setContactPoints(contactPoints);
     cassandraSession.setKeyspaceName(this.getKeyspaceName());
     cassandraSession.setLocalDatacenter(localDatacenter);
@@ -88,7 +102,8 @@ public class ApacheCassandraConfig extends AbstractCassandraConfiguration {
   protected SessionBuilderConfigurer getSessionBuilderConfigurer() {
     return new SessionBuilderConfigurer() {
 
-      public CqlSessionBuilder configure(CqlSessionBuilder cqlSessionBuilder) {
+      @Override
+      public CqlSessionBuilder configure(final CqlSessionBuilder cqlSessionBuilder) {
         return cqlSessionBuilder.withConfigLoader(
             DriverConfigLoader.programmaticBuilder()
                 .withDuration(

@@ -1,4 +1,4 @@
-package com.scoperetail.commons.cassandra.config.common;
+package com.scoperetail.commons.cassandra.config.datastax;
 
 /*-
  * *****
@@ -27,18 +27,24 @@ package com.scoperetail.commons.cassandra.config.common;
  */
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.cassandra.core.cql.AsyncCqlTemplate;
+import org.springframework.data.cassandra.core.CassandraAdminTemplate;
 import com.datastax.oss.driver.api.core.CqlSession;
 
+/**
+ * Creating CassandraAdminTemplate bean separately to avoid circular dependency in
+ * DataStaxCassandraConfig class
+ */
 @Configuration
-public class AsyncTemplateConfig {
+@ConditionalOnProperty(value = "db.type", havingValue = "Astra-Cassandra", matchIfMissing = false)
+public class AstraCassandraTemplateConfig {
 
   @Autowired CqlSession cqlSession;
 
   @Bean
-  public AsyncCqlTemplate asyncCqlTemplate() {
-    return new AsyncCqlTemplate(cqlSession);
+  public CassandraAdminTemplate cassandraTemplate() {
+    return new CassandraAdminTemplate(cqlSession);
   }
 }
