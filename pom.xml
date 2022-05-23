@@ -9,7 +9,7 @@
 		<relativePath />
 	</parent>
 
-    <groupId>com.scoperetail.commons.cassandra.config</groupId>
+    <groupId>com.scoperetail.commons</groupId>
     <artifactId>commons-cassandra-config</artifactId>
     <version>0.4-SNAPSHOT</version>
     <name>commons-cassandra-config</name>
